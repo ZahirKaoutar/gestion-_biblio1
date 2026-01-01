@@ -6,7 +6,8 @@ class Router {
         $this->routes = [
             "/" => ["ControllerHome", "index"],
             "/login" =>["AuthController", "Login"],
-            "/register" =>["AuthController", "Register"]
+            "/register" =>["AuthController", "Register"],
+             "/LivreReader" =>["AdminController", "AfficheLivre"],
         ];
     }
 

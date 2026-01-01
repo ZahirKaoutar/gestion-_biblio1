@@ -1,7 +1,6 @@
 <?php
 require_once __DIR__ . "/../config/Data.php";
-require_once __DIR__ . "/../Models/Admin.php";
-require_once __DIR__ . "/../Models/Reader.php"; // ⚠️ corriger le nom du fichier
+
 
 class AuthController {
     public $db;
@@ -55,7 +54,7 @@ class AuthController {
     }
 
     public function Login() {
-        $errors = ["login"=>''];
+       
 
         if ($_SERVER['REQUEST_METHOD'] === "GET") {
             $content = __DIR__ . "/../views/Login.views.php";
@@ -83,8 +82,8 @@ class AuthController {
                 header("Location:/");
                 exit;
             } else {
-                $errors['login'] = "Email ou mot de passe incorrect";
-                $_SESSION["errors"] = $errors['login'];
+                
+                $_SESSION["errors"] =  "Email ou mot de passe incorrect";;
                 header("Location:/login");
                 exit;
             }
