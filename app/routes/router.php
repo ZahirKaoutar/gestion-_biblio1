@@ -4,7 +4,9 @@ class Router {
 
     public function __construct() {
         $this->routes = [
-            "/" => ["ControllerHome", "index"]
+            "/" => ["ControllerHome", "index"],
+            "/login" =>["AuthController", "Login"],
+            "/register" =>["AuthController", "Register"]
         ];
     }
 
@@ -15,7 +17,8 @@ class Router {
             [$controllerName, $method] = $this->routes[$uri];
 
             
-            require_once __DIR__ . "/../Controller/{$controllerName}.php";
+           require_once __DIR__ . '/../Controller/' . $controllerName . '.php';
+
 
             $controller = new $controllerName();
 
