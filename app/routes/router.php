@@ -7,7 +7,10 @@ class Router {
             "/" => ["ControllerHome", "index"],
             "/login" =>["AuthController", "Login"],
             "/register" =>["AuthController", "Register"],
-             "/LivreReader" =>["AdminController", "AfficheLivre"],
+             "//AfficheBook" =>["AdminController", "AfficheLivre"],
+             "/Deletebook"=>["AdminController", "Deletebook"],
+              "/mod"=>["AdminController", "Modviews"],
+              "/modBook"=>["AdminController", "ModBook"]
         ];
     }
 
