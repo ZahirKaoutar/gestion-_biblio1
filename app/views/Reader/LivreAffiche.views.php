@@ -1,9 +1,14 @@
 <section class="bg-gradient-to-br from-blue-50 to-gray-100 min-h-screen p-6">
 
 <?php
-if(isset($_SESSION['ListBookReder'])):
+if(isset($_SESSION['ListBookReder']) ):
   $books = $_SESSION['ListBookReder'];
+
+ 
+
+
 ?>
+
 
 <div class="container mx-auto">
   
@@ -119,3 +124,41 @@ if(isset($_SESSION['ListBookReder'])):
 <?php endif; ?>
 
                 </section>
+<?php if (!empty($succesAdd)): ?>
+<div class="overlay">
+  <div class="popup">
+    <?= $succesAdd?>
+    <button class="btn">OK</button>
+  </div>
+</div>
+<?php endif; ?>
+<!--  if (!empty($empr)): ?>
+<div class="overlay">
+  <div class="popup">
+    <?= $empr?>
+    <button class="btn">OK</button>
+  </div>
+</div>
+ -->
+
+<script>
+   let overlay = document.querySelector(".overlay");
+   overlay.style.cssText = "display:flex;justify-content:center;align-items:center;position:fixed;top:0;left:0;background:rgba(0,0,0,0.5);z-index:999;height:100%;width:100%;";
+
+   let popup = document.querySelector(".popup");
+   popup.style.cssText = "background:green;color:white;padding:20px;border-radius:8px;display:flex;flex-direction:column;align-items:center;";
+
+   let btn = document.querySelector(".btn");
+   btn.addEventListener("click", () => {
+       overlay.remove(); 
+   });
+</script>
+                
+                
+                
+                
+                
+                
+                
+                
+                

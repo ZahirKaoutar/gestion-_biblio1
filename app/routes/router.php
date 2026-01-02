@@ -15,7 +15,13 @@ class Router {
               "/AfficherReader"=>["AdminController", "AfficherReader"],
               "/Emprunt"=>["AdminController", "Emprunt"],
               "/voirProfile"=>["AdminController", "voirProfile"],
-              "/AuthLogout"=>["LogoutController", "Logout"]
+              "/AuthLogout"=>["LogoutController", "Logout"],
+              "/LivreReader"=>["ReaderController", "ListerLivre"],
+              "/Detaille"=>["ReaderController", "viewDetaille"],
+               "/EmprunteLivre"=>["ReaderController", "EmprunteLivre"],
+               "/BorrowHistory"=>["ReaderController", "voirmesEmprunt"],
+               "/returnBook"=>["ReaderController", "returnbook"],
+
         ];
     }
 
