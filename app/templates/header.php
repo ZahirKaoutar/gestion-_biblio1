@@ -21,7 +21,8 @@
 
         <?php if(isset($_SESSION['PersonLog'])): ?>
             <?php if($_SESSION['PersonLog']->getRole()==="admin"): ?>
-          <li><a href="/Admin" class="<?= urlIs('/Admin') ? 'text-blue-600 font-semibold':'hover:text-blue-600 transition' ?>">Dashbord</a></li>
+            <li><a href="/AfficherReader" class="<?= urlIs('/AfficherReader') ? 'text-blue-600 font-semibold':'hover:text-blue-600 transition' ?>">les Lectures</a></li>
+         
           <li><a href="/AfficheBook" class="<?= urlIs('/AfficheBook') ? 'text-blue-600 font-semibold':'hover:text-blue-600 transition' ?>">les Livres</a></li>
           <li><a href="/voirProfile" class="hover:text-blue-600 transition">Profile</a></li>
           <li><a href="/Emprunt" class="hover:text-blue-600 transition">les emprunts</a></li>

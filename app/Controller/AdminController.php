@@ -216,7 +216,32 @@ public function Emprunt(){
 
     $content = __DIR__ . "/../views/Admin/ListeEmprunt.views.php"; 
     include __DIR__ . "/../template/Layout.php";
-    
+    exit;
+
+
+}
+public function voirProfile(){
+    if(isset($_SESSION['PersonLog'])){
+        $userid=$_SESSION['PersonLog']->getId();
+    }
+    $req="SELECT *FROM users where id=?";
+    $stm=$this->db->prepare($req);
+    $stm->bindParam(1,$userid,PDO::PARAM_INT);
+    $stm->execute();
+    $data=$stm->fetch(PDO::FETCH_ASSOC);
+    if($data['role']==='admin'){
+        $_SESSION['user']=new Admin($data['id'],$data['firstName'],$data['lastName'],$data['email'],$data['password'],$data['role']);
+        $content = __DIR__ . "/../views/Profile.views.php"; 
+        include __DIR__ . "/../template/Layout.php";
+        exit;
+        
+    }else{
+        $_SESSION['user']=new Reader($data['id'],$data['firstName'],$data['lastName'],$data['email'],$data['password'],$data['role']);
+        $content = __DIR__ . "/../views/Profile.views.php"; 
+        include __DIR__ . "/../template/Layout.php";
+        exit;
+
+    }
 
 }
 

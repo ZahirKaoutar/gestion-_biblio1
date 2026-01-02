@@ -10,7 +10,10 @@ class Router {
              "/AfficheBook" =>["AdminController", "AfficheLivre"],
              "/Deletebook"=>["AdminController", "Deletebook"],
               "/mod"=>["AdminController", "Modviews"],
-              "/modBook"=>["AdminController", "ModBook"]
+              "/modBook"=>["AdminController", "ModBook"],
+              "/addbook"=>["AdminController", "AddBook"],
+              "/AfficherReader"=>["AdminController", "AfficherReader"],
+              "/Emprunt"=>["AdminController", "Emprunt"]
         ];
     }
 
