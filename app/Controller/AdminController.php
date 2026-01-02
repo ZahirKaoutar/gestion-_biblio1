@@ -119,7 +119,7 @@ public function Modviews(){
             exit();
         } else {
             $_SESSION["moderror"] = $this->error;
-            header("Location:/ModBook" );
+            header("Location:/modBook" );
             exit();
         }
     }
@@ -129,7 +129,99 @@ public function Modviews(){
     }
 
 
- }
+public function AddBook(){
+      if ($_SERVER["REQUEST_METHOD"] === "POST") {
+      
+
+        $author = trim($_POST['author']);
+        $year   = trim($_POST['year']);
+        $title  = trim($_POST['title']);
+        $status = trim($_POST['status']);
+
+        if (empty($title))  $this->error["title"]  = "Champ titre obligatoire";
+        if (empty($year))   $this->error["year"]   = "Champ année obligatoire";
+        if (empty($author)) $this->error["author"] = "Champ auteur obligatoire";
+        if (empty($status)) $this->error["status"] = "Champ statut obligatoire";
+
+        if (
+            empty($this->error['author']) &&
+            empty($this->error['year']) &&
+            empty($this->error['title']) &&
+            empty($this->error['status'])
+        ) {
+            $req = "INSERT INTO books (author,title,year,status)values(?,?,?,?)";
+            $stm = $this->db->prepare($req);
+
+            $stm->bindParam(1, $author, PDO::PARAM_STR);
+            $stm->bindParam(2, $title, PDO::PARAM_STR);
+            $stm->bindParam(3, $year, PDO::PARAM_STR);
+            $stm->bindParam(4, $status, PDO::PARAM_STR);
+          
+
+            $stm->execute();
+
+            $_SESSION['addbook'] = "Livreajoute avec succès";
+            header("Location:/AfficheBook");
+            exit();
+
+        }
+            
+         else {
+            $_SESSION["adderror"] = $this->error;
+            header("Location:/addbook" );
+            exit();
+        }
+    }
+
+
+
+}
+public function AfficherReader(){
+    $req="SELECT*FROM users where role='reader'";
+    $stm=$this->db->prepare($req);
+    $stm->execute();
+    $res=$stm->fetchAll(PDO::FETCH_ASSOC);
+    $data=[];
+    foreach($res as $r){
+        $data[]=new Reader($r['id'],$r['firstName'],$r['lasName'],$r['email'],$r['password'],$r['role']);
+
+    }
+    $_SESSION["reader"]=$data;
+    header("Location:/AfficheReader");
+    exit;
+}
+
+public function Emprunt(){
+    $req="SELECT u.firstName ,u.lastName,u.email,bk.author,bk.title,br.returnDate,br.borrowDate from borrows br INNER JOIN u users 
+    ON br.readerId=u.id ,
+    INNER JOIN  bk books ON bk.id=br.booID
+    where bk.status='borrowed'  ";
+    $stm=$this->db->prepare($req);
+    $stm->execute();
+    $res=$stm->fetchAll(PDO::FETCH_ASSOC);
+    $data = [];
+    foreach($res as $row){
+        $data[] = [
+            
+            'lecteur'     => $row['firstName'] . ' ' . $row['lastName'],
+            'email'          => $row['email'],
+            'auteur'      => $row['author'],
+            'livre'       => $row['title'],
+            
+            'borrowDate'  => $row['borrowDate'],
+            'returnDate'  => $row['returnDate']   ];
+
+    }
+    $_SESSION["emprunts"] = $data;
+
+    $content = __DIR__ . "/../views/Admin/ListeEmprunt.views.php"; 
+    include __DIR__ . "/../template/Layout.php";
+    
+
+}
+
+
+}
  
 
 

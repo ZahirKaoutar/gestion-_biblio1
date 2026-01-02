@@ -7,8 +7,12 @@ if(isset($_SESSION['DeleteSucces'])){
 }
 
 if(isset($_SESSION['mod'])){
-      $$succesMod = $_SESSION['mod']; 
+      $succesMod = $_SESSION['mod']; 
       unset($_SESSION['mod']);
+}
+if(isset($_SESSION['addbook'])){
+      $succesAdd = $_SESSION['addbook']; 
+      unset($_SESSION['addbook']);
 }
 
 
@@ -94,6 +98,14 @@ if(isset($_SESSION['mod'])){
 <div class="overlay">
   <div class="popup">
     <?= $succesMod?>
+    <button class="btn">OK</button>
+  </div>
+</div>
+<?php endif; ?>
+<?php if (!empty($succesAdd)): ?>
+<div class="overlay">
+  <div class="popup">
+    <?= $succesAdd?>
     <button class="btn">OK</button>
   </div>
 </div>
