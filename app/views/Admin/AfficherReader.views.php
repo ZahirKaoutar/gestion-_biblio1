@@ -14,7 +14,8 @@
     <?php
 if(isset($_SESSION['reader'])){
     $readers=$_SESSION['reader'];
-    unset($readers);
+    
+    
 
 
 }
@@ -27,7 +28,8 @@ if(isset($_SESSION['reader'])){
     <div class="flex justify-between items-center mb-8 pb-4 border-b">
       <div>
         <h1 class="text-3xl font-bold text-gray-800">Liste des Lecteurs</h1>
-        <p class="text-gray-500 mt-1"><?php echo count($readers); ?> lecteurs inscrits</p>
+          <p class="text-gray-500 mt-1"><?php echo count($readers); ?> lecteurs inscrits</p>
+      
       </div>
      
     </div>
@@ -76,7 +78,7 @@ if(isset($_SESSION['reader'])){
 
 
 
-
+<?php unset($readers);?>
 
 
 

@@ -59,17 +59,18 @@ public function Deletebook(){
        
     }
 public function Modviews(){
-            $id=$_POST['id'];
+            $id=$_GET['id'];
      $req="SELECT *FROM books where id=?";
     $stm=$this->db->prepare($req);
     $stm->bindParam(1,$id,PDO::PARAM_INT);
     $stm->execute();
     $res=$stm->fetch(PDO::FETCH_ASSOC);
 
-            $_SESSION['bookmod']=$res;
+            $_SESSION['bookmod']= new Book($res['title'],$res['author'],$res['year'],$res['status'],$res['id']);
    
-          $content= __DIR__ ."/../views/Admin/AfficheLivre.views.php";
+          $content= __DIR__ ."/../views/Admin/ModLivre.views.php";
             include __DIR__ . "/../templates/Layout.php";
+            exit;
        
        
        
@@ -81,7 +82,7 @@ public function Modviews(){
 
 
  public function ModBook(){
-            $id=$_POST['id'];
+            $id=$_POST['idbook'];
      if ($_SERVER["REQUEST_METHOD"] === "POST") {
       
 
@@ -130,6 +131,12 @@ public function Modviews(){
 
 
 public function AddBook(){
+    if ($_SERVER["REQUEST_METHOD"] === "GET"){
+         $content = __DIR__ . "/../views/Admin/AddBook.views.php"; 
+        include __DIR__ . "/../templates/Layout.php";
+        exit;
+
+    }
       if ($_SERVER["REQUEST_METHOD"] === "POST") {
       
 
@@ -142,6 +149,7 @@ public function AddBook(){
         if (empty($year))   $this->error["year"]   = "Champ année obligatoire";
         if (empty($author)) $this->error["author"] = "Champ auteur obligatoire";
         if (empty($status)) $this->error["status"] = "Champ statut obligatoire";
+var_dump($_POST);
 
         if (
             empty($this->error['author']) &&
@@ -168,7 +176,7 @@ public function AddBook(){
             
          else {
             $_SESSION["adderror"] = $this->error;
-            header("Location:/addbook" );
+            header("Location:/AddBook" );
             exit();
         }
     }
@@ -183,19 +191,30 @@ public function AfficherReader(){
     $res=$stm->fetchAll(PDO::FETCH_ASSOC);
     $data=[];
     foreach($res as $r){
-        $data[]=new Reader($r['id'],$r['firstName'],$r['lasName'],$r['email'],$r['password'],$r['role']);
+        $data[]=new Reader($r['id'],$r['firstName'],$r['lastName'],$r['email'],$r['password'],$r['role']);
 
     }
     $_SESSION["reader"]=$data;
-    header("Location:/AfficheReader");
+    $content = __DIR__ . "/../views/Admin/AfficherReader.views.php"; 
+    include __DIR__ . "/../templates/Layout.php";
     exit;
+    
 }
 
 public function Emprunt(){
-    $req="SELECT u.firstName ,u.lastName,u.email,bk.author,bk.title,br.returnDate,br.borrowDate from borrows br INNER JOIN u users 
-    ON br.readerId=u.id ,
-    INNER JOIN  bk books ON bk.id=br.booID
-    where bk.status='borrowed'  ";
+   $req = "SELECT 
+            u.firstName,
+            u.lastName,
+            u.email,
+            bk.author,
+            bk.title,
+            br.returnDate,
+            br.borrowDate
+        FROM borrows br
+        INNER JOIN users u ON br.readerId = u.id
+        INNER JOIN books bk ON br.bookId = bk.id
+        WHERE bk.status = 'borrowed'";
+
     $stm=$this->db->prepare($req);
     $stm->execute();
     $res=$stm->fetchAll(PDO::FETCH_ASSOC);
@@ -215,7 +234,7 @@ public function Emprunt(){
     $_SESSION["emprunts"] = $data;
 
     $content = __DIR__ . "/../views/Admin/ListeEmprunt.views.php"; 
-    include __DIR__ . "/../template/Layout.php";
+    include __DIR__ . "/../templates/Layout.php";
     exit;
 
 
@@ -231,14 +250,14 @@ public function voirProfile(){
     $data=$stm->fetch(PDO::FETCH_ASSOC);
     if($data['role']==='admin'){
         $_SESSION['user']=new Admin($data['id'],$data['firstName'],$data['lastName'],$data['email'],$data['password'],$data['role']);
-        $content = __DIR__ . "/../views/Profile.views.php"; 
-        include __DIR__ . "/../template/Layout.php";
+        $content = __DIR__ . "/../views/Profile.php"; 
+        include __DIR__ . "/../templates/Layout.php";
         exit;
         
     }else{
         $_SESSION['user']=new Reader($data['id'],$data['firstName'],$data['lastName'],$data['email'],$data['password'],$data['role']);
-        $content = __DIR__ . "/../views/Profile.views.php"; 
-        include __DIR__ . "/../template/Layout.php";
+        $content = __DIR__ . "/../views/Profile.php"; 
+        include __DIR__ . "/../templates/Layout.php";
         exit;
 
     }

@@ -33,7 +33,7 @@ unset($_SESSION['adderror']);
    
  
      
-    <form class="max-w-xl mx-auto bg-white p-8 shadow-md rounded-lg space-y-4" method="post" action="/modBook">
+    <form class="max-w-xl mx-auto bg-white p-8 shadow-md rounded-lg space-y-4" method="post" action="/AddBook">
       
      
       <input type="text" placeholder="titre de book" name="title" class="w-full border px-4 py-2 rounded-lg">

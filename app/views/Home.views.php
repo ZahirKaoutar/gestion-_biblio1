@@ -6,7 +6,7 @@ if(isset($_SESSION['PersonLog'])){
         echo $_SESSION['PersonLog']->getFirstName();
 
     }else{
-     echo $_SESSION['PersonLog']->getLastName();
+     echo $_SESSION['PersonLog']->getLastName()."//" .$_SESSION['PersonLog']->getRole();
 }
         
 }

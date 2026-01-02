@@ -29,10 +29,11 @@ unset($_SESSION['moderror']);
 
 
 <section class="container mx-auto py-16">
-    <h2 class="text-3xl font-bold mb-6 text-center">AddBOOK</h2>
+    <h2 class="text-3xl font-bold mb-6 text-center">ModifierBOOK</h2>
    
   <?php if(isset($_SESSION['bookmod'])){
       $livremod=$_SESSION['bookmod'];
+      
     }?>
 
      

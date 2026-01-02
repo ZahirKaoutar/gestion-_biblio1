@@ -11,9 +11,11 @@ class Router {
              "/Deletebook"=>["AdminController", "Deletebook"],
               "/mod"=>["AdminController", "Modviews"],
               "/modBook"=>["AdminController", "ModBook"],
-              "/addbook"=>["AdminController", "AddBook"],
+              "/AddBook"=>["AdminController", "AddBook"],
               "/AfficherReader"=>["AdminController", "AfficherReader"],
-              "/Emprunt"=>["AdminController", "Emprunt"]
+              "/Emprunt"=>["AdminController", "Emprunt"],
+              "/voirProfile"=>["AdminController", "voirProfile"],
+              "/AuthLogout"=>["LogoutController", "Logout"]
         ];
     }
 
