@@ -1,0 +1,31 @@
+# <IfModule mod_rewrite.c>
+
+
+
+# RewriteEngine On
+
+# # Si ce n'est pas un fichier existant
+# RewriteCond %{REQUEST_FILENAME} !-f
+
+# # Si ce n'est pas un dossier existant
+# RewriteCond %{REQUEST_FILENAME} !-d
+
+# # Alors redirige vers index.php
+# RewriteRule ^(.*)$ index.php [QSA,L]
+
+# # Optional: hide .php extensions (if you want URLs without .php)
+# RewriteCond %{REQUEST_FILENAME}.php -f
+# RewriteRule ^(.)$ $1.php [L]
+
+# </IFModule>
+
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteRule ^ index.php [L]
+</IfModule>
+
+
